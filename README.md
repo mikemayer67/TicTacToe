@@ -1,2 +1,2 @@
 # TicTacToe
-AIGameBot project
+AIGameBot Project
