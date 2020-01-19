@@ -1,5 +1,5 @@
 //
-//  TicTacToeGrid.swift
+//  Grid.swift
 //
 //  Created by Mike Mayer on 1/5/20.
 //  Copyright © 2020 VMWishes. All rights reserved.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-class TicTacToeGrid
+class Grid
 {
   typealias Coord = (Int,Int)
   
-  enum Cell : UInt16, CaseIterable
+  enum Cell : UInt16, CaseIterable, VMGameBotMove
   {
     case NW =   1
     case N  =   2

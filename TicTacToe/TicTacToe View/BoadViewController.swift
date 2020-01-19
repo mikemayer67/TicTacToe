@@ -1,6 +1,5 @@
 //
-//  TicTacToeViewController.swift
-//  TicTacToe
+//  BoardViewController.swift
 //
 //  Created by Mike Mayer on 1/4/20.
 //  Copyright © 2020 VMWishes. All rights reserved.
@@ -8,15 +7,15 @@
 
 import Cocoa
 
-class TicTacToeViewController: NSViewController
+class BoardViewController: NSViewController
 {
-  private(set) var touchCell : TicTacToeGrid.Cell?
-  private(set) var board     : TicTacToeBoard?
-  private(set) var player1   : TicTacToePlayer?
-  private(set) var player2   : TicTacToePlayer?
+  private(set) var touchCell : Grid.Cell?
+  private(set) var board     : Board?
+  private(set) var player1   : Player?
+  private(set) var player2   : Player?
   
-  @IBOutlet weak var boardView : TicTacToeView!
-  @IBOutlet weak var configView : TicTacToeConfigView!
+  @IBOutlet weak var boardView : BoardView!
+  @IBOutlet weak var configView : ConfigView!
   @IBOutlet weak var replayButton : NSButton!
   
   @objc dynamic var playerOneIsRobot = false
@@ -34,17 +33,17 @@ class TicTacToeViewController: NSViewController
   @IBAction func handlePlayButton(_ sender: NSButton) {
     configView.isHidden = true
     
-    player1 = TicTacToePlayer(playerOneIsX ? .X : .O, isAIGameBot: playerOneIsRobot)
-    player2 = TicTacToePlayer(playerOneIsX ? .O : .X, isAIGameBot: playerTwoIsRobot)
+    player1 = Player(playerOneIsX ? .X : .O, as: playerOneIsRobot ? .Robot : .Human)
+    player2 = Player(playerOneIsX ? .O : .X, as: playerTwoIsRobot ? .Robot : .Human)
 
-    board = TicTacToeBoard(player1!, player2!)
+    board = Board(player1!, player2!)
   }
   
   @IBAction func handleReplayButton(_ sender: NSButton) {
     boardView.reset()
     
     (player1,player2) = (player2,player1)
-    board = TicTacToeBoard(player1!, player2!)
+    board = Board(player1!, player2!)
   }
   
   override func viewDidLoad() {
@@ -57,8 +56,8 @@ class TicTacToeViewController: NSViewController
     touchCell = nil
     
     guard let  board = self.board else { return }
-    guard case AIGameState.PlayerTurn(let player) = board.gameState else { return }
-    if player.isAIGameBot { return }
+    guard case VMGameState.PlayerTurn(let player) = board.gameState else { return }
+    guard case VMGamePlayerType.Human = player.type else { return }
     
     touchCell = boardView.cell(at:event.locationInWindow)
   }
@@ -68,8 +67,8 @@ class TicTacToeViewController: NSViewController
     guard touchCell != nil else { return }
     
     guard let  board = self.board else { return }
-    guard case AIGameState.PlayerTurn(let player as TicTacToePlayer) = board.gameState else { return }
-    if player.isAIGameBot { return }
+    guard case VMGameState.PlayerTurn(let player as Player) = board.gameState else { return }
+    guard case VMGamePlayerType.Human = player.type else { return }
 
     guard let upCell = boardView.cell(at:event.locationInWindow) else { return }
     
@@ -90,7 +89,7 @@ class TicTacToeViewController: NSViewController
 
     touchCell = nil
     
-    if let player = board.currentPlayer, player.isAIGameBot {
+    if let player = board.currentPlayer, case VMGamePlayerType.Robot = player.type {
       print("Handle Robot TURN")
     }
   }

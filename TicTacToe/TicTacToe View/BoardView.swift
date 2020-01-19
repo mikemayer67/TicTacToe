@@ -1,6 +1,5 @@
 //
-//  GridView.swift
-//  TicTacToe
+//  BoardView.swift
 //
 //  Created by Mike Mayer on 1/4/20.
 //  Copyright © 2020 VMWishes. All rights reserved.
@@ -15,14 +14,14 @@ let cellPad  : CGFloat = 0.05
 let cellSize : CGFloat = gridSize / 3
 let markSize : CGFloat = cellSize - 2 * cellPad
 
-class TicTacToeView: NSView
+class BoardView: NSView
 {
-  private(set) var marks : [TicTacToePlayer.Mark?] = Array(repeating: nil, count: 9)
+  private(set) var marks : [Player.Mark?] = Array(repeating: nil, count: 9)
   
   private(set) var bgColor = NSColor.white
   private(set) var fgColor = NSColor.black
   
-  func setState(_ state : AIGameState)
+  func setState(_ state : VMGameState)
   {
     switch state
     {
@@ -35,9 +34,13 @@ class TicTacToeView: NSView
     case .TieGame:
       bgColor = NSColor.black
       fgColor = NSColor.white
-    case .Winner(let winner as TicTacToePlayer):
+    case .Winner(let winner as Player):
       bgColor = NSColor.black
-      fgColor = ( winner.isAIGameBot ? NSColor.red : NSColor.green )
+      switch winner.type {
+      case .Human  : fgColor = NSColor.green
+      case .Robot  : fgColor = NSColor.red
+      case .Remote : fgColor = NSColor.yellow
+      }
     case .Winner(_):
       fatalError("Non TicTacToe player won the game...")
     }
@@ -45,7 +48,7 @@ class TicTacToeView: NSView
     self.setNeedsDisplay(frame)
   }
   
-  func setMark(_ mark:TicTacToePlayer.Mark, at cell:TicTacToeGrid.Cell)
+  func setMark(_ mark:Player.Mark, at cell:Grid.Cell)
   {
     let (row,col) = cell.coord
     marks[3*row+col] = mark
@@ -53,7 +56,7 @@ class TicTacToeView: NSView
     self.setNeedsDisplay(frame)
   }
   
-  func clearMark(at cell:TicTacToeGrid.Cell)
+  func clearMark(at cell:Grid.Cell)
   {
     let (row,col) = cell.coord
     marks[3*row+col] = nil
@@ -125,13 +128,13 @@ class TicTacToeView: NSView
     }
   }
   
-  func cell(at touch:NSPoint) -> TicTacToeGrid.Cell?
+  func cell(at touch:NSPoint) -> Grid.Cell?
   {
     let col = Int( ( touch.x/frame.width  - gridPad ) / cellSize )
     let row = Int( ( touch.y/frame.height - gridPad ) / cellSize )
     
     if col >= 0, col < 3, row >= 0, row < 3 {
-      return TicTacToeGrid.cell(coord:(row,col))
+      return Grid.cell(coord:(row,col))
     }
     
     return nil

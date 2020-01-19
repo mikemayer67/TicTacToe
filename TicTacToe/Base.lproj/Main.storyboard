@@ -113,15 +113,15 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
-        <!--Tic Tac Toe View Controller-->
+        <!--Board View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="TicTacToeViewController" customModule="TicTacToe" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="m2S-Jp-Qdl" customClass="TicTacToeView" customModule="TicTacToe" customModuleProvider="target">
+                <viewController id="XfG-lQ-9wD" customClass="BoardViewController" customModule="TicTacToe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="m2S-Jp-Qdl" customClass="BoardView" customModule="TicTacToe" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="392"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="y9d-VO-Y2p" customClass="TicTacToeConfigView" customModule="TicTacToe" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="y9d-VO-Y2p" customClass="ConfigView" customModule="TicTacToe" customModuleProvider="target">
                                 <rect key="frame" x="63" y="60" width="355" height="273"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2HV-af-S3b">

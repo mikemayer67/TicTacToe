@@ -1,5 +1,5 @@
 //
-//  TicTacToeBoard.swift
+//  Board.swift
 //
 //  Created by Mike Mayer on 1/7/20.
 //  Copyright © 2020 VMWishes. All rights reserved.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TicTacToeBoard : AIGameModel
+class Board : VMGameModel
 {
   // Each game board instance is given a unique board index.
   //  This is used for debugging purposes (it has no bearing on game play)
@@ -26,17 +26,17 @@ class TicTacToeBoard : AIGameModel
   private(set) var marks : [UInt16]
   
   // AIGameBot support
-  private(set) var gameState: AIGameState = .PreGame
+  private(set) var gameState: VMGameState = .PreGame
     
   // Tic-Tac-Toe game play details
   private(set) var depth : Int
   
-  let players       : [TicTacToePlayer]
+  let players       : [Player]
   var playerSeats   : [Int:Int]
   
-  var currentPlayer : TicTacToePlayer?
+  var currentPlayer : Player?
   {
-    guard case AIGameState.PlayerTurn(let player as TicTacToePlayer) = gameState else { return nil }
+    guard case VMGameState.PlayerTurn(let player as Player) = gameState else { return nil }
     return player
   }
     
@@ -55,12 +55,12 @@ class TicTacToeBoard : AIGameModel
     return String(repeating:" ",count:depth)
   }
   
-  init(_ player1: TicTacToePlayer, _ player2 : TicTacToePlayer )
+  init(_ player1: Player, _ player2 : Player )
   {
     guard player1.mark != player2.mark else { fatalError("oops... players using the same mark") }
     
-    boardId = TicTacToeBoard.boardIndexer.next()
-    tableId = TicTacToeBoard.tableIndexer.next()
+    boardId = Board.boardIndexer.next()
+    tableId = Board.tableIndexer.next()
     
     players       = [player1,player2]
     playerSeats   = [player1.id:0, player2.id:1]
@@ -69,9 +69,9 @@ class TicTacToeBoard : AIGameModel
     depth         = 0
   }
   
-  init(_ other : TicTacToeBoard)
+  init(_ other : Board)
   {
-    boardId = TicTacToeBoard.boardIndexer.next()
+    boardId = Board.boardIndexer.next()
     tableId = other.tableId
 
     players       = other.players
@@ -89,54 +89,54 @@ class TicTacToeBoard : AIGameModel
   }
   
   func reset(to other: AIGameModel) {
-    guard let other = other as? TicTacToeBoard else { fatalError("Unknown Game Model") }
+    guard let other = other as? Board else { fatalError("Unknown Game Model") }
 
     self.marks          = other.marks
     self.gameState      = other.gameState
     self.depth          = other.depth
   }
   
-  var availableMoves : [AIGameMove]?
+  func availableMoves(for player: VMGamePlayerType) -> [VMGameBotMove]?
   {
-    guard case AIGameState.PlayerTurn(let player as TicTacToePlayer) = gameState else { return nil }
+    guard case VMGameState.PlayerTurn(let player as Player) = gameState else { return nil }
     
-    var rval = [TicTacToeUpdate]()
+    var rval = [Grid.Cell]()
     
     let state = marks[0] | marks[1]
     
-    for cell in TicTacToeGrid.Cell.allCases
+    for cell in Grid.Cell.allCases
     {
       if cell.rawValue & state == 0 {
-        rval.append( TicTacToeUpdate(cell) )
+        rval.append( cell )
       }
     }
     
     if rval.isEmpty { return nil }
     
-    let moves = rval.reduce("  ") { r,e in String(format:"%@ %@",r,e.cell.string) }
+    let moves = rval.reduce("  ") { r,e in String(format:"%@ %@",e.string) }
     print(prefix,"Moves for ",player.mark,"=",moves)
 
     return rval
   }
   
   @discardableResult
-  func apply(_ move:AIGameMove, for player:AIGamePlayer) -> Int
+  func apply(_ move:VMGameBotMove, for player:VMGamePlayer) -> Int
   {
-    guard let move   = move as? TicTacToeUpdate   else { fatalError("oops... invalid move type") }
-    guard let player = currentPlayer              else { fatalError("oops... no current player set") }
+    guard let cell   = move as? Grid.Cell else { fatalError("oops... invalid move type") }
+    guard let player = currentPlayer      else { fatalError("oops... no current player set") }
 
-    mark(move.cell, for:player)
+    mark(cell, for:player)
     
-    if case AIGameState.TieGame = gameState { return 0 }
+    if case VMGameState.TieGame = gameState { return 0 }
     
-    if case AIGameState.Winner( let winner as TicTacToePlayer ) = gameState
+    if case VMGameState.Winner( let winner as Player ) = gameState
     {
       return (winner.id == player.id ? Int.max : Int.min)
     }
     
     var candidateWins = [0,0]
     
-    for mask in TicTacToeGrid.winMasks
+    for mask in Grid.winMasks
     {
       if mask & marks[0] == 0 { candidateWins[1] = candidateWins[1] + 1 }
       if mask & marks[1] == 0 { candidateWins[0] = candidateWins[0] + 1 }
@@ -146,9 +146,9 @@ class TicTacToeBoard : AIGameModel
     return 10 * ( candidateWins[seat] - candidateWins[1-seat] )
   }
   
-  func mark(_ cell:TicTacToeGrid.Cell, for player:TicTacToePlayer)
+  func mark(_ cell:Grid.Cell, for player:Player)
   {
-    guard case AIGameState.PlayerTurn = gameState else { fatalError("oops... invalid game state to apply move") }
+    guard case VMGameState.PlayerTurn = gameState else { fatalError("oops... invalid game state to apply move") }
     guard let seat = playerSeats[player.id]       else { fatalError("oops... player isn't in this game") }
     
     let mask = cell.rawValue
@@ -159,7 +159,7 @@ class TicTacToeBoard : AIGameModel
     print(prefix,depth, "apply",player.mark,"at",cell.string,"   (", boardId,")")
     display()
     
-    for mask in TicTacToeGrid.winMasks {
+    for mask in Grid.winMasks {
       if mask & marks[seat] == mask {
         print( prefix,player.mark, "won!")
         gameState = .Winner(player)
@@ -180,32 +180,13 @@ class TicTacToeBoard : AIGameModel
   
   func copy(with zone: NSZone? = nil) -> Any
   {
-    return TicTacToeBoard(self)
+    return Board(self)
   }
-  
-  var string : String
-  {
-    var rval = "["
-    
-    for cell : TicTacToeGrid.Cell in [ .SW, .S, .SE, .W, .X, .E, .NW, .N, .NE ]
-    {
-      let mask = cell.rawValue
-      if      marks[0] & mask == mask { rval.append(players[0].mark.rawValue) }
-      else if marks[1] & mask == mask { rval.append(players[1].mark.rawValue) }
-      else                            { rval.append(" ") }
-      
-      if cell == .E || cell == .SE { rval.append("][") }
-    }
-    rval.append("]")
-    
-    return rval
-  }
-  
   
   func display()
   {
     var line = ""
-    for cell : TicTacToeGrid.Cell in [ .NW, .N, .NE, .W, .X, .E, .SW, .S, .SE ]
+    for cell : Grid.Cell in [ .NW, .N, .NE, .W, .X, .E, .SW, .S, .SE ]
     {
       let mask = cell.rawValue
       if      marks[0] & mask == mask { line.append(players[0].mark.rawValue) }
