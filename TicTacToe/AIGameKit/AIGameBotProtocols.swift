@@ -10,16 +10,9 @@
 
 import Foundation
 
-enum AIGamePlayerType
-{
-  case Human
-  case Robot
-  case Remote
-}
-
 protocol AIGamePlayer
 {
-  var aiPlayerType : AIGamePlayerType {get}
+  var isAIGameBot : Bool {get}
 }
 
 enum AIGameState
@@ -64,6 +57,6 @@ protocol AIGameModel : AnyObject, NSCopying
   //  - the value attribute reflects the value of the move FOR THE PLAYER MAKING THE MOVE
   //  The returned value of Int.max should only be used in case of a win for the player
   //  The returned value of Int.min should only be used in case of a loss for the player
-  func apply(_ move:AIGameMove, for player:AIGamePlayer) -> (done:Bool, value:Int)
+  func apply(_ move:AIGameMove, for player:AIGamePlayer) -> Int
 }
 

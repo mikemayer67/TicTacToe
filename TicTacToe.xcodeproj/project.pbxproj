@@ -51,13 +51,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		274E9BD223CBE30D00740ED3 /* AI Opponent */ = {
+		274E9BD223CBE30D00740ED3 /* AIGameKit */ = {
 			isa = PBXGroup;
 			children = (
 				274E9BDB23CC2D0C00740ED3 /* AIGameBotProtocols.swift */,
 				27B9A3C723CBDB1F000548C2 /* AIGameBot.swift */,
 			);
-			path = "AI Opponent";
+			path = AIGameKit;
 			sourceTree = "<group>";
 		};
 		274E9BD323CBE33A00740ED3 /* TicTacToe Model */ = {
@@ -115,7 +115,7 @@
 				275986AA23D0869B0014BECA /* Extensions */,
 				274E9BD323CBE33A00740ED3 /* TicTacToe Model */,
 				274E9BD423CBE37E00740ED3 /* TicTacToe View */,
-				274E9BD223CBE30D00740ED3 /* AI Opponent */,
+				274E9BD223CBE30D00740ED3 /* AIGameKit */,
 			);
 			path = TicTacToe;
 			sourceTree = "<group>";

@@ -37,11 +37,7 @@ class TicTacToeView: NSView
       fgColor = NSColor.white
     case .Winner(let winner as TicTacToePlayer):
       bgColor = NSColor.black
-      switch winner.aiPlayerType
-      {
-      case .Human: fgColor = NSColor.green
-      case .Robot: fgColor = NSColor.red
-      }
+      fgColor = ( winner.isAIGameBot ? NSColor.red : NSColor.green )
     case .Winner(_):
       fatalError("Non TicTacToe player won the game...")
     }

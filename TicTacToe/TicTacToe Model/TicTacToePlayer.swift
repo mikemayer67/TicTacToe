@@ -10,6 +10,8 @@ import GameplayKit
 
 class TicTacToePlayer : AIGamePlayer
 {
+  let isAIGameBot: Bool
+  
   enum Mark : String {
     case X = "X"
     case O = "O"
@@ -19,18 +21,17 @@ class TicTacToePlayer : AIGamePlayer
   
   let id : Int
   let mark : Mark
-  let aiPlayerType : AIGamePlayerType
     
   convenience init(_ mark: Mark)
   {
-    self.init(mark, as:.Human)
+    self.init(mark, isAIGameBot:false)
   }
   
-  init(_ mark:Mark, as type:AIGamePlayerType)
+  init(_ mark:Mark, isAIGameBot:Bool)
   {
     self.id = TicTacToePlayer.idIndexer.next()
     self.mark = mark
-    self.aiPlayerType = type
+    self.isAIGameBot = isAIGameBot
   }
 }
 

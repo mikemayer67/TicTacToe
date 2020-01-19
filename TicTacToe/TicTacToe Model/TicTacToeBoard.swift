@@ -40,6 +40,16 @@ class TicTacToeBoard : AIGameModel
     return player
   }
     
+  var done : Bool
+  {
+    switch gameState {
+    case .PreGame:    return false
+    case .PlayerTurn: return false
+    case .Winner:     return true
+    case .TieGame:    return true
+    }
+  }
+  
   var prefix : String  // used for debug logging
   {
     return String(repeating:" ",count:depth)
@@ -97,7 +107,7 @@ class TicTacToeBoard : AIGameModel
     for cell in TicTacToeGrid.Cell.allCases
     {
       if cell.rawValue & state == 0 {
-        rval.append( TicTacToeUpdate(cell, for: player, depth:depth) )
+        rval.append( TicTacToeUpdate(cell) )
       }
     }
     
@@ -110,26 +120,50 @@ class TicTacToeBoard : AIGameModel
   }
   
   @discardableResult
-  func apply(_ move:AIGameMove, for player:AIGamePlayer) -> (done:Bool, value:Int)
+  func apply(_ move:AIGameMove, for player:AIGamePlayer) -> Int
+  {
+    guard let move   = move as? TicTacToeUpdate   else { fatalError("oops... invalid move type") }
+    guard let player = currentPlayer              else { fatalError("oops... no current player set") }
+
+    mark(move.cell, for:player)
+    
+    if case AIGameState.TieGame = gameState { return 0 }
+    
+    if case AIGameState.Winner( let winner as TicTacToePlayer ) = gameState
+    {
+      return (winner.id == player.id ? Int.max : Int.min)
+    }
+    
+    var candidateWins = [0,0]
+    
+    for mask in TicTacToeGrid.winMasks
+    {
+      if mask & marks[0] == 0 { candidateWins[1] = candidateWins[1] + 1 }
+      if mask & marks[1] == 0 { candidateWins[0] = candidateWins[0] + 1 }
+    }
+    
+    guard let seat = playerSeats[player.id] else { fatalError("oops... player isn't in this game") }
+    return 10 * ( candidateWins[seat] - candidateWins[1-seat] )
+  }
+  
+  func mark(_ cell:TicTacToeGrid.Cell, for player:TicTacToePlayer)
   {
     guard case AIGameState.PlayerTurn = gameState else { fatalError("oops... invalid game state to apply move") }
-    guard let player = currentPlayer              else { fatalError("oops... no current player set") }
-    guard let move = move as? TicTacToeUpdate     else { fatalError("oops... invalid move type") }
-    
     guard let seat = playerSeats[player.id]       else { fatalError("oops... player isn't in this game") }
-    let cell = move.cell.rawValue
     
-    marks[seat] = marks[seat] | cell
+    let mask = cell.rawValue
+    
+    marks[seat] = marks[seat] | mask
     depth = depth + 1
     
-    print(prefix,depth, "apply",player.mark,"at",move.cell.string,"   (", boardId,")")
+    print(prefix,depth, "apply",player.mark,"at",cell.string,"   (", boardId,")")
     display()
     
     for mask in TicTacToeGrid.winMasks {
       if mask & marks[seat] == mask {
         print( prefix,player.mark, "won!")
         gameState = .Winner(player)
-        return (true,Int.max)
+        return
       }
     }
     
@@ -137,27 +171,17 @@ class TicTacToeBoard : AIGameModel
     {
       print(prefix,"--tied--")
       gameState = .TieGame
-      return (true,0)
-    }
-      
-    let playerMask = marks[seat]
-    let opponentMask = marks[1-seat]
-    
-    var numPlayerPotentialWins = 0
-    var numOpponentPotentialWins = 0
-    
-    for mask in TicTacToeGrid.winMasks
-    {
-      if mask & opponentMask == 0 { numPlayerPotentialWins   = numPlayerPotentialWins   + 1 }
-      if mask & playerMask   == 0 { numOpponentPotentialWins = numOpponentPotentialWins + 1 }
+      return
     }
     
+    // Not tied and no winner... other player's turn
     gameState = .PlayerTurn( players[1-seat] )
-    
-    return (false, 10 * (numPlayerPotentialWins - numOpponentPotentialWins) )
   }
   
-  func copy(with zone: NSZone? = nil) -> Any { return TicTacToeBoard(self) }
+  func copy(with zone: NSZone? = nil) -> Any
+  {
+    return TicTacToeBoard(self)
+  }
   
   var string : String
   {

@@ -34,14 +34,10 @@ class TicTacToeViewController: NSViewController
   @IBAction func handlePlayButton(_ sender: NSButton) {
     configView.isHidden = true
     
-    player1 = TicTacToePlayer(playerOneIsX ? .X : .O, as: playerOneIsRobot ? .Robot : .Human)
-    player2 = TicTacToePlayer(playerOneIsX ? .O : .X, as: playerTwoIsRobot ? .Robot : .Human)
+    player1 = TicTacToePlayer(playerOneIsX ? .X : .O, isAIGameBot: playerOneIsRobot)
+    player2 = TicTacToePlayer(playerOneIsX ? .O : .X, isAIGameBot: playerTwoIsRobot)
 
     board = TicTacToeBoard(player1!, player2!)
-    
-    if playerOneIsRobot {
-      print ("ROBOT plays first")
-    }
   }
   
   @IBAction func handleReplayButton(_ sender: NSButton) {
@@ -49,9 +45,6 @@ class TicTacToeViewController: NSViewController
     
     (player1,player2) = (player2,player1)
     board = TicTacToeBoard(player1!, player2!)
-    if playerOneIsRobot {
-      print ("ROBOT plays first")
-    }
   }
   
   override func viewDidLoad() {
@@ -65,7 +58,7 @@ class TicTacToeViewController: NSViewController
     
     guard let  board = self.board else { return }
     guard case AIGameState.PlayerTurn(let player) = board.gameState else { return }
-    guard case AIGamePlayerType.Human = player.aiPlayerType else { return }
+    if player.isAIGameBot { return }
     
     touchCell = boardView.cell(at:event.locationInWindow)
   }
@@ -76,7 +69,7 @@ class TicTacToeViewController: NSViewController
     
     guard let  board = self.board else { return }
     guard case AIGameState.PlayerTurn(let player as TicTacToePlayer) = board.gameState else { return }
-    guard case AIGamePlayerType.Human = player.aiPlayerType else { return }
+    if player.isAIGameBot { return }
 
     guard let upCell = boardView.cell(at:event.locationInWindow) else { return }
     
@@ -84,11 +77,9 @@ class TicTacToeViewController: NSViewController
     {
       print( player.mark.rawValue, " plays at: ", upCell.string )
       
-      let(done,score) =
-        board.apply( TicTacToeUpdate(upCell, for: player, depth: board.depth), for: player )
+      board.mark(upCell, for: player )
       
-      print("Score:",score)
-      if(done)
+      if(board.done)
       {
         replayButton.isHidden = false
       }
@@ -99,7 +90,7 @@ class TicTacToeViewController: NSViewController
 
     touchCell = nil
     
-    if let player = board.currentPlayer, case AIGamePlayerType.Robot = player.aiPlayerType {
+    if let player = board.currentPlayer, player.isAIGameBot {
       print("Handle Robot TURN")
     }
   }

@@ -7,25 +7,12 @@
 
 class TicTacToeUpdate : AIGameMove
 {
-  var aiGameValue: Int = 0
+  var aiGameValue : Int
+  let cell        : TicTacToeGrid.Cell
+  
+  init(_ cell:TicTacToeGrid.Cell)
   {
-    didSet {
-      print(String(repeating:" ",count:depth), depth,
-            "value for", player.mark,
-            "at", cell.string,
-            "=", aiGameValue)
-    }
-  }
-  
-  let cell   : TicTacToeGrid.Cell
-  
-  let player : TicTacToePlayer
-  let depth  : Int
-  
-  init(_ cell:TicTacToeGrid.Cell, for player:TicTacToePlayer, depth:Int)
-  {
-    self.cell   = cell
-    self.player = player
-    self.depth  = depth+1
+    self.cell = cell
+    self.aiGameValue = 0
   }
 }
