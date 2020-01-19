@@ -1,6 +1,5 @@
 //
-//  TicTacToeConfigView.swift
-//  TicTacToe
+//  ConfigView.swift
 //
 //  Created by Mike Mayer on 1/17/20.
 //  Copyright © 2020 VMWishes. All rights reserved.
@@ -8,7 +7,7 @@
 
 import Cocoa
 
-class TicTacToeConfigView: NSView {
+class ConfigView: NSView {
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)

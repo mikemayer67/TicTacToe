@@ -1,6 +1,5 @@
 //
-//  TicTacToePlayer.swift
-//  TicTacToe
+//  Player.swift
 //
 //  Created by Mike Mayer on 1/5/20.
 //  Copyright © 2020 VMWishes. All rights reserved.
@@ -8,8 +7,10 @@
 
 import GameplayKit
 
-class TicTacToePlayer : AIGamePlayer
+class Player : VMGamePlayer
 {
+  let type: VMGamePlayerType
+    
   enum Mark : String {
     case X = "X"
     case O = "O"
@@ -19,18 +20,17 @@ class TicTacToePlayer : AIGamePlayer
   
   let id : Int
   let mark : Mark
-  let aiPlayerType : AIGamePlayerType
     
   convenience init(_ mark: Mark)
   {
     self.init(mark, as:.Human)
   }
   
-  init(_ mark:Mark, as type:AIGamePlayerType)
+  init(_ mark:Mark, as type:VMGamePlayerType)
   {
-    self.id = TicTacToePlayer.idIndexer.next()
+    self.id = Player.idIndexer.next()
     self.mark = mark
-    self.aiPlayerType = type
+    self.type = type
   }
 }
 
