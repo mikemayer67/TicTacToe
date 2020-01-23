@@ -11,7 +11,7 @@
 		275986A923D0868F0014BECA /* Indexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275986A823D0868F0014BECA /* Indexer.swift */; };
 		275986AC23D211290014BECA /* ConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275986AB23D211290014BECA /* ConfigView.swift */; };
 		27D96D7A23C1AA60003A677B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D96D7923C1AA60003A677B /* AppDelegate.swift */; };
-		27D96D7C23C1AA60003A677B /* BoadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D96D7B23C1AA60003A677B /* BoadViewController.swift */; };
+		27D96D7C23C1AA60003A677B /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D96D7B23C1AA60003A677B /* BoardViewController.swift */; };
 		27D96D7E23C1AA62003A677B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27D96D7D23C1AA62003A677B /* Assets.xcassets */; };
 		27D96D8123C1AA62003A677B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27D96D7F23C1AA62003A677B /* Main.storyboard */; };
 		27D96D8C23C1AC6E003A677B /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D96D8B23C1AC6E003A677B /* BoardView.swift */; };
@@ -27,7 +27,7 @@
 		275986AB23D211290014BECA /* ConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigView.swift; sourceTree = "<group>"; };
 		27D96D7623C1AA60003A677B /* TicTacToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27D96D7923C1AA60003A677B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		27D96D7B23C1AA60003A677B /* BoadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoadViewController.swift; sourceTree = "<group>"; };
+		27D96D7B23C1AA60003A677B /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
 		27D96D7D23C1AA62003A677B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27D96D8023C1AA62003A677B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		27D96D8223C1AA62003A677B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -58,24 +58,24 @@
 			path = VMGameKit;
 			sourceTree = "<group>";
 		};
-		274E9BD323CBE33A00740ED3 /* TicTacToe Model */ = {
+		274E9BD323CBE33A00740ED3 /* TicTacToeModel */ = {
 			isa = PBXGroup;
 			children = (
 				27D96D8D23C1CBF1003A677B /* Player.swift */,
 				27D96D9323C2C750003A677B /* Grid.swift */,
 				27F17BC023C4624D00685264 /* Board.swift */,
 			);
-			path = "TicTacToe Model";
+			path = TicTacToeModel;
 			sourceTree = "<group>";
 		};
-		274E9BD423CBE37E00740ED3 /* TicTacToe Views */ = {
+		274E9BD423CBE37E00740ED3 /* TicTacToeViews */ = {
 			isa = PBXGroup;
 			children = (
-				27D96D7B23C1AA60003A677B /* BoadViewController.swift */,
+				27D96D7B23C1AA60003A677B /* BoardViewController.swift */,
 				27D96D8B23C1AC6E003A677B /* BoardView.swift */,
 				275986AB23D211290014BECA /* ConfigView.swift */,
 			);
-			path = "TicTacToe Views";
+			path = TicTacToeViews;
 			sourceTree = "<group>";
 		};
 		275986AA23D0869B0014BECA /* Extensions */ = {
@@ -110,8 +110,8 @@
 				27D96D7F23C1AA62003A677B /* Main.storyboard */,
 				27D96D8223C1AA62003A677B /* Info.plist */,
 				275986AA23D0869B0014BECA /* Extensions */,
-				274E9BD323CBE33A00740ED3 /* TicTacToe Model */,
-				274E9BD423CBE37E00740ED3 /* TicTacToe Views */,
+				274E9BD323CBE33A00740ED3 /* TicTacToeModel */,
+				274E9BD423CBE37E00740ED3 /* TicTacToeViews */,
 				274E9BD223CBE30D00740ED3 /* VMGameKit */,
 			);
 			path = TicTacToe;
@@ -189,7 +189,7 @@
 			files = (
 				275986AC23D211290014BECA /* ConfigView.swift in Sources */,
 				27D96D8E23C1CBF1003A677B /* Player.swift in Sources */,
-				27D96D7C23C1AA60003A677B /* BoadViewController.swift in Sources */,
+				27D96D7C23C1AA60003A677B /* BoardViewController.swift in Sources */,
 				27D96D8C23C1AC6E003A677B /* BoardView.swift in Sources */,
 				27D96D7A23C1AA60003A677B /* AppDelegate.swift in Sources */,
 				27F17BC123C4624D00685264 /* Board.swift in Sources */,

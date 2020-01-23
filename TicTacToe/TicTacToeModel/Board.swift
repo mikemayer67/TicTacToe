@@ -21,7 +21,7 @@ class Board : AIGameModel
   private static var tableIndexer : Indexer = 0
   
   let boardId : Int
-  let tableId : Int
+  let rootId : Int
 
   private(set) var marks : [UInt16]
   
@@ -50,17 +50,12 @@ class Board : AIGameModel
     }
   }
   
-  var prefix : String  // used for debug logging
-  {
-    return String(repeating:" ",count:depth)
-  }
-  
   init(_ player1: Player, _ player2 : Player )
   {
     guard player1.mark != player2.mark else { fatalError("oops... players using the same mark") }
     
     boardId = Board.boardIndexer.next()
-    tableId = Board.tableIndexer.next()
+    rootId = Board.tableIndexer.next()
     
     players       = [player1,player2]
     playerSeats   = [player1.id:0, player2.id:1]
@@ -72,7 +67,7 @@ class Board : AIGameModel
   init(_ other : Board)
   {
     boardId = Board.boardIndexer.next()
-    tableId = other.tableId
+    rootId = other.rootId
 
     players       = other.players
     playerSeats   = other.playerSeats
@@ -90,6 +85,7 @@ class Board : AIGameModel
   
   func reset(to other: AIGameModel) {
     guard let other = other as? Board else { fatalError("Unknown Game Model") }
+    guard other.rootId == self.rootId else { fatalError("oops... Can only reset to a clone of current board") }
 
     self.marks          = other.marks
     self.gameState      = other.gameState
@@ -98,7 +94,13 @@ class Board : AIGameModel
   
   var availableMoves : [VMGameBotMove]?
   {
-    guard case VMGameState.PlayerTurn(let player as Player) = gameState else { return nil }
+    guard case VMGameState.PlayerTurn = gameState else { return nil }
+    
+    if depth == 0 {
+      let cand = Grid.Cell.allCases
+      let move = cand.randomElement()
+      return [ move! ]
+    }
     
     var rval = [Grid.Cell]()
     
@@ -113,9 +115,6 @@ class Board : AIGameModel
     
     if rval.isEmpty { return nil }
     
-    let moves = rval.reduce("  ") { r,e in String(format:"%@ %@",r,e.string) }
-    print(prefix,"Moves for ",player.mark,"=",moves)
-
     return rval
   }
   
@@ -128,13 +127,11 @@ class Board : AIGameModel
     mark(cell, for:player)
     
     if case VMGameState.TieGame = gameState {
-      print(prefix,"tie")
       return 0
     }
     
     if case VMGameState.Winner( let winner as Player ) = gameState
     {
-      print(prefix,winner.mark,"wins")
       return (winner.id == player.id ? Int.max : Int.min)
     }
     
@@ -148,7 +145,6 @@ class Board : AIGameModel
     
     guard let seat = playerSeats[player.id] else { fatalError("oops... player isn't in this game") }
     let score = 10 * ( candidateWins[seat] - candidateWins[1-seat] )
-    print(prefix,"score for",player.mark,"=",score)
     return score
   }
   
@@ -167,15 +163,13 @@ class Board : AIGameModel
     
     let mask = cell.rawValue
     
+    guard marks[seat] & mask == 0 else { fatalError("oops... attempt to play in occupied space") }
+    
     marks[seat] = marks[seat] | mask
     depth = depth + 1
     
-    print(prefix,depth, "apply",player.mark,"at",cell.string,"   (", boardId,")")
-    display()
-    
     for mask in Grid.winMasks {
       if mask & marks[seat] == mask {
-        print( prefix,player.mark, "won!")
         gameState = .Winner(player)
         return
       }
@@ -183,7 +177,6 @@ class Board : AIGameModel
     
     if depth == 9  // current player didn't win (would have returned above), so must be a tie
     {
-      print(prefix,"--tied--")
       gameState = .TieGame
       return
     }
@@ -195,30 +188,6 @@ class Board : AIGameModel
   func copy(with zone: NSZone? = nil) -> Any
   {
     return Board(self)
-  }
-  
-  func display()
-  {
-    var line = ""
-    for cell : Grid.Cell in [ .NW, .N, .NE, .W, .X, .E, .SW, .S, .SE ]
-    {
-      let mask = cell.rawValue
-      if      marks[0] & mask == mask { line.append(players[0].mark.rawValue) }
-      else if marks[1] & mask == mask { line.append(players[1].mark.rawValue) }
-      else                            { line.append(" ") }
-      
-      switch cell
-      {
-      case .SW, .S, .W, .X, .NW, .N:
-        line.append("|")
-      case .NE, .E:
-        print(prefix,line);
-        print(prefix,"-+-+-")
-        line = ""
-      case .SE:
-        print(prefix,line)
-      }
-    }
   }
   
 }

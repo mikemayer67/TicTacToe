@@ -32,14 +32,19 @@ class VMGameBot
     guard let availableMoves = game.availableMoves else { return nil }
     if availableMoves.isEmpty { return nil }
     
+    if availableMoves.count == 1 { return (availableMoves.first!,0) }
+    
     let currentPlayer = game.currentPlayer
     
     var bestScore = Int.min
     var bestMoves = Array<VMGameBotMove>()
     
+    let trial = game.copy() as! AIGameModel
+    
     for move in availableMoves
     {
-      let trial = game.copy() as! AIGameModel
+      trial.reset(to: game)
+      
       var score = trial.apply(move)
       
       switch trial.gameState
@@ -67,18 +72,11 @@ class VMGameBot
       
       if score > bestScore
       {
-        if let g = trial as? Board, let m = move as? Grid.Cell, let p = currentPlayer as? Player {
-          print(g.prefix,"New best score for",p.mark,"at",m.string)
-        }
         bestMoves = [move]
         bestScore = score
       }
       else if score == bestScore
       {
-        if let g = trial as? Board, let m = move as? Grid.Cell, let p = currentPlayer as? Player {
-          print(g.prefix,"Equivalent moves for",p.mark,"at",
-                bestMoves.reduce("  ") { r,e in String(format:"%@ %@",r,(e as! Grid.Cell).string) } )
-        }
         bestMoves.append(move)
       }
     }

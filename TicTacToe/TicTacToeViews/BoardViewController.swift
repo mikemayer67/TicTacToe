@@ -45,16 +45,15 @@ class BoardViewController: NSViewController
   
   @IBAction func handleReplayButton(_ sender: NSButton)
   {
-    boardView.reset()
-    
     (player1,player2) = (player2,player1)
-    
     setupNewGame()
   }
   
   func setupNewGame()
   {
     board = Board(player1, player2)
+    
+    boardView.board = board
     
     if playerOneIsRobot || playerTwoIsRobot
     {
@@ -70,9 +69,10 @@ class BoardViewController: NSViewController
     }
   }
   
-  override func viewDidLoad() {
+  override func viewDidLoad()
+  {
     super.viewDidLoad()
-    boardView.reset()
+    boardView.setNeedsDisplay(boardView.bounds)
   }
 
   override func mouseDown(with event: NSEvent)
@@ -98,17 +98,9 @@ class BoardViewController: NSViewController
     
     if upCell == touchCell, board.open(at: upCell)
     {
-      print( player.mark.rawValue, " plays at: ", upCell.string )
-      
-      board.mark(upCell, for: player )
-      
-      if(board.done)
-      {
-        replayButton.isHidden = false
-      }
-    
-      boardView.setState(board.gameState)
-      boardView.setMark(player.mark, at: upCell)
+      board.mark(upCell, for: player)
+      boardView.setNeedsDisplay(boardView.bounds)
+      if board.done { replayButton.isHidden = false }
     }
 
     touchCell = nil
@@ -128,21 +120,15 @@ class BoardViewController: NSViewController
           else { return }
     
     DispatchQueue.global(qos: .background).async {
-      print("==================================================================")
       if let move = bot.selectMove()
       {
         DispatchQueue.main.async {
           guard let cell = move as? Grid.Cell else { fatalError("oops... invalid move type returned by gamebot") }
           guard board.open(at: cell) else { fatalError("oops... gamebot selected filled cell")}
           board.apply(move)
-          self.boardView.setState(board.gameState)
-          self.boardView.setMark(player.mark, at: move as! Grid.Cell)
-          self.boardView.setNeedsDisplay(self.boardView.frame)
+          self.boardView.setNeedsDisplay(self.boardView.bounds)
+          if board.done { self.replayButton.isHidden = false }
         }
-      }
-      else
-      {
-        print("No move for",player.mark)
       }
     }
   }
