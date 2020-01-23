@@ -31,9 +31,7 @@ class VMGameBot
   {
     guard let availableMoves = game.availableMoves else { return nil }
     if availableMoves.isEmpty { return nil }
-    
-    if availableMoves.count == 1 { return (availableMoves.first!,0) }
-    
+        
     let currentPlayer = game.currentPlayer
     
     var bestScore = Int.min

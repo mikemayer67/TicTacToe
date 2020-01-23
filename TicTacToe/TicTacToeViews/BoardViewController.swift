@@ -22,7 +22,7 @@ class BoardViewController: NSViewController
   @objc dynamic var playerTwoIsRobot = false
   @objc dynamic var playerOneIsX     = true
   
-  @objc dynamic var robotLookAhead : Int = 8
+  @objc dynamic var robotLookAhead : Int = 4
   
   var gameBot : VMGameBot!
   
