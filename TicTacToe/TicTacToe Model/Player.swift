@@ -9,16 +9,11 @@ import GameplayKit
 
 class Player : VMGamePlayer
 {
-  let type: VMGamePlayerType
-    
   enum Mark : String {
     case X = "X"
     case O = "O"
   }
   
-  static var idIndexer : Indexer = 0
-  
-  let id : Int
   let mark : Mark
     
   convenience init(_ mark: Mark)
@@ -28,9 +23,8 @@ class Player : VMGamePlayer
   
   init(_ mark:Mark, as type:VMGamePlayerType)
   {
-    self.id = Player.idIndexer.next()
     self.mark = mark
-    self.type = type
+    super.init(as: type)
   }
 }
 

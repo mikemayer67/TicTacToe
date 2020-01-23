@@ -68,14 +68,14 @@
 			path = "TicTacToe Model";
 			sourceTree = "<group>";
 		};
-		274E9BD423CBE37E00740ED3 /* TicTacToe View */ = {
+		274E9BD423CBE37E00740ED3 /* TicTacToe Views */ = {
 			isa = PBXGroup;
 			children = (
 				27D96D7B23C1AA60003A677B /* BoadViewController.swift */,
 				27D96D8B23C1AC6E003A677B /* BoardView.swift */,
 				275986AB23D211290014BECA /* ConfigView.swift */,
 			);
-			path = "TicTacToe View";
+			path = "TicTacToe Views";
 			sourceTree = "<group>";
 		};
 		275986AA23D0869B0014BECA /* Extensions */ = {
@@ -111,7 +111,7 @@
 				27D96D8223C1AA62003A677B /* Info.plist */,
 				275986AA23D0869B0014BECA /* Extensions */,
 				274E9BD323CBE33A00740ED3 /* TicTacToe Model */,
-				274E9BD423CBE37E00740ED3 /* TicTacToe View */,
+				274E9BD423CBE37E00740ED3 /* TicTacToe Views */,
 				274E9BD223CBE30D00740ED3 /* VMGameKit */,
 			);
 			path = TicTacToe;

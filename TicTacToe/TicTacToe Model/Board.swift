@@ -7,8 +7,8 @@
 
 import Foundation
 
-class Board : VMGameModel
-{
+class Board : AIGameModel
+{  
   // Each game board instance is given a unique board index.
   //  This is used for debugging purposes (it has no bearing on game play)
   
@@ -34,9 +34,9 @@ class Board : VMGameModel
   let players       : [Player]
   var playerSeats   : [Int:Int]
   
-  var currentPlayer : Player?
+  var currentPlayer : VMGamePlayer?
   {
-    guard case VMGameState.PlayerTurn(let player as Player) = gameState else { return nil }
+    guard case VMGameState.PlayerTurn(let player) = gameState else { return nil }
     return player
   }
     
@@ -96,7 +96,7 @@ class Board : VMGameModel
     self.depth          = other.depth
   }
   
-  func availableMoves(for player: VMGamePlayerType) -> [VMGameBotMove]?
+  var availableMoves : [VMGameBotMove]?
   {
     guard case VMGameState.PlayerTurn(let player as Player) = gameState else { return nil }
     
@@ -113,24 +113,28 @@ class Board : VMGameModel
     
     if rval.isEmpty { return nil }
     
-    let moves = rval.reduce("  ") { r,e in String(format:"%@ %@",e.string) }
+    let moves = rval.reduce("  ") { r,e in String(format:"%@ %@",r,e.string) }
     print(prefix,"Moves for ",player.mark,"=",moves)
 
     return rval
   }
   
   @discardableResult
-  func apply(_ move:VMGameBotMove, for player:VMGamePlayer) -> Int
+  func apply(_ move:VMGameBotMove) -> Int
   {
-    guard let cell   = move as? Grid.Cell else { fatalError("oops... invalid move type") }
-    guard let player = currentPlayer      else { fatalError("oops... no current player set") }
+    guard let cell   = move as? Grid.Cell        else { fatalError("oops... invalid move type") }
+    guard let player = currentPlayer as? Player  else { fatalError("oops... invalid or missing player") }
 
     mark(cell, for:player)
     
-    if case VMGameState.TieGame = gameState { return 0 }
+    if case VMGameState.TieGame = gameState {
+      print(prefix,"tie")
+      return 0
+    }
     
     if case VMGameState.Winner( let winner as Player ) = gameState
     {
+      print(prefix,winner.mark,"wins")
       return (winner.id == player.id ? Int.max : Int.min)
     }
     
@@ -143,7 +147,17 @@ class Board : VMGameModel
     }
     
     guard let seat = playerSeats[player.id] else { fatalError("oops... player isn't in this game") }
-    return 10 * ( candidateWins[seat] - candidateWins[1-seat] )
+    let score = 10 * ( candidateWins[seat] - candidateWins[1-seat] )
+    print(prefix,"score for",player.mark,"=",score)
+    return score
+  }
+  
+  func open(at cell:Grid.Cell) -> Bool
+  {
+    let mask = cell.rawValue
+    let marks = self.marks[0] | self.marks[1]
+    
+    return (mask & marks) == 0
   }
   
   func mark(_ cell:Grid.Cell, for player:Player)

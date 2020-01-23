@@ -122,84 +122,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="y9d-VO-Y2p" customClass="ConfigView" customModule="TicTacToe" customModuleProvider="target">
-                                <rect key="frame" x="63" y="60" width="355" height="273"/>
+                                <rect key="frame" x="63" y="59" width="354" height="274"/>
                                 <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2HV-af-S3b">
-                                        <rect key="frame" x="18" y="225" width="124" height="28"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="28" id="QaT-os-6G6"/>
-                                            <constraint firstAttribute="width" constant="120" id="jPB-Gm-39P"/>
-                                        </constraints>
-                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Player One:" id="Maf-Ax-BJ8">
-                                            <font key="font" metaFont="system" size="24"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xdF-HJ-4pr">
-                                        <rect key="frame" x="30" y="194" width="86" height="25"/>
-                                        <buttonCell key="cell" type="check" title="Human" bezelStyle="regularSquare" imagePosition="left" inset="2" id="vOK-tZ-bSa">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system" size="20"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="watchPlayerOne:" target="XfG-lQ-9wD" id="TJr-vz-N36"/>
-                                            <binding destination="XfG-lQ-9wD" name="value" keyPath="self.playerOneIsRobot" id="Vaz-32-IGz">
-                                                <dictionary key="options">
-                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                </dictionary>
-                                            </binding>
-                                        </connections>
-                                    </button>
-                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dKR-gU-qZM">
-                                        <rect key="frame" x="30" y="167" width="77" height="25"/>
-                                        <buttonCell key="cell" type="check" title="Robot" bezelStyle="regularSquare" imagePosition="left" inset="2" id="KcM-GN-Zvb">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system" size="20"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="watchPlayerOne:" target="XfG-lQ-9wD" id="CFo-gn-bA2"/>
-                                            <binding destination="XfG-lQ-9wD" name="value" keyPath="self.playerOneIsRobot" id="UcO-j5-2FH"/>
-                                        </connections>
-                                    </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QHX-5c-WAJ">
-                                        <rect key="frame" x="155" y="224" width="36" height="23"/>
-                                        <buttonCell key="cell" type="check" title="X" bezelStyle="regularSquare" imagePosition="left" inset="2" id="nUw-oq-T9G">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system" size="20"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <binding destination="XfG-lQ-9wD" name="value" keyPath="self.playerOneIsX" id="uDC-3Z-nar"/>
-                                        </connections>
-                                    </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c0N-rc-2H6">
-                                        <rect key="frame" x="207" y="224" width="37" height="23"/>
-                                        <buttonCell key="cell" type="check" title="O" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Hkw-b7-nWZ">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system" size="20"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <binding destination="XfG-lQ-9wD" name="value" keyPath="self.playerOneIsX" id="0DM-dT-GKr">
-                                                <dictionary key="options">
-                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                </dictionary>
-                                            </binding>
-                                        </connections>
-                                    </button>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MFx-bi-AKF">
-                                        <rect key="frame" x="18" y="116" width="124" height="28"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="28" id="fSB-cO-QRf"/>
-                                            <constraint firstAttribute="width" constant="120" id="oUA-5w-fPw"/>
-                                        </constraints>
-                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Player Two:" id="u0X-Ud-Xuw">
-                                            <font key="font" metaFont="system" size="24"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bO8-bQ-YjI">
-                                        <rect key="frame" x="30" y="87" width="85" height="23"/>
+                                        <rect key="frame" x="48" y="122" width="85" height="23"/>
                                         <buttonCell key="cell" type="check" title="Human" bezelStyle="regularSquare" imagePosition="left" inset="2" id="vQv-bp-b2G">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system" size="20"/>
@@ -214,7 +140,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pDx-l4-hAw">
-                                        <rect key="frame" x="30" y="62" width="75" height="23"/>
+                                        <rect key="frame" x="149" y="122" width="75" height="23"/>
                                         <buttonCell key="cell" type="check" title="Robot" bezelStyle="regularSquare" imagePosition="left" inset="2" id="gag-Sa-9Ju">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system" size="20"/>
@@ -224,22 +150,8 @@
                                             <binding destination="XfG-lQ-9wD" name="value" keyPath="self.playerTwoIsRobot" id="HB2-Ij-lQ0"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lS9-5z-nYJ">
-                                        <rect key="frame" x="229" y="13" width="112" height="41"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="baH-pB-6qG"/>
-                                            <constraint firstAttribute="height" constant="30" id="jD6-E5-s1j"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="push" title="Play" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XUp-WG-Iec">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system" size="20"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="handlePlayButton:" target="XfG-lQ-9wD" id="Nox-RP-eOt"/>
-                                        </connections>
-                                    </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sne-5N-bSu">
-                                        <rect key="frame" x="155" y="118" width="36" height="23"/>
+                                        <rect key="frame" x="158" y="154" width="36" height="23"/>
                                         <buttonCell key="cell" type="check" title="X" bezelStyle="regularSquare" imagePosition="left" inset="2" id="kLW-ei-d37">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system" size="20"/>
@@ -253,7 +165,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dj8-fs-ymi">
-                                        <rect key="frame" x="207" y="118" width="37" height="23"/>
+                                        <rect key="frame" x="210" y="154" width="37" height="23"/>
                                         <buttonCell key="cell" type="check" title="O" bezelStyle="regularSquare" imagePosition="left" inset="2" id="DAX-Af-cPL">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system" size="20"/>
@@ -262,40 +174,151 @@
                                             <binding destination="XfG-lQ-9wD" name="value" keyPath="self.playerOneIsX" id="jJI-s2-eSU"/>
                                         </connections>
                                     </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xdF-HJ-4pr">
+                                        <rect key="frame" x="48" y="197" width="85" height="23"/>
+                                        <buttonCell key="cell" type="check" title="Human" bezelStyle="regularSquare" imagePosition="left" inset="2" id="vOK-tZ-bSa">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system" size="20"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="watchPlayerOne:" target="XfG-lQ-9wD" id="TJr-vz-N36"/>
+                                            <binding destination="XfG-lQ-9wD" name="value" keyPath="self.playerOneIsRobot" id="Vaz-32-IGz">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QHX-5c-WAJ">
+                                        <rect key="frame" x="158" y="229" width="36" height="23"/>
+                                        <buttonCell key="cell" type="check" title="X" bezelStyle="regularSquare" imagePosition="left" inset="2" id="nUw-oq-T9G">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system" size="20"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="XfG-lQ-9wD" name="value" keyPath="self.playerOneIsX" id="uDC-3Z-nar"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c0N-rc-2H6">
+                                        <rect key="frame" x="210" y="229" width="37" height="23"/>
+                                        <buttonCell key="cell" type="check" title="O" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Hkw-b7-nWZ">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system" size="20"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="XfG-lQ-9wD" name="value" keyPath="self.playerOneIsX" id="0DM-dT-GKr">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </button>
+                                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tj9-py-HaT">
+                                        <rect key="frame" x="155" y="75" width="140" height="26"/>
+                                        <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="9" doubleValue="9" tickMarkPosition="above" sliderType="linear" id="pAt-DJ-C4a"/>
+                                        <connections>
+                                            <binding destination="XfG-lQ-9wD" name="value" keyPath="self.robotLookAhead" id="V3j-FM-mXT"/>
+                                        </connections>
+                                    </slider>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AkQ-Yd-5OL">
+                                        <rect key="frame" x="309" y="77" width="28" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="KWd-7n-48h"/>
+                                            <constraint firstAttribute="height" constant="22" id="yL4-hD-3Uw"/>
+                                        </constraints>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="0" id="PC9-Fk-8xu">
+                                            <font key="font" metaFont="system" size="19"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="XfG-lQ-9wD" name="value" keyPath="self.robotLookAhead" id="v1f-Kj-EkV"/>
+                                        </connections>
+                                    </textField>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lS9-5z-nYJ">
+                                        <rect key="frame" x="263" y="11" width="77" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Play" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XUp-WG-Iec">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system" size="20"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="handlePlayButton:" target="XfG-lQ-9wD" id="Nox-RP-eOt"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dKR-gU-qZM">
+                                        <rect key="frame" x="149" y="197" width="75" height="23"/>
+                                        <buttonCell key="cell" type="check" title="Robot" bezelStyle="regularSquare" imagePosition="left" inset="2" id="KcM-GN-Zvb">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system" size="20"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="watchPlayerOne:" target="XfG-lQ-9wD" id="CFo-gn-bA2"/>
+                                            <binding destination="XfG-lQ-9wD" name="value" keyPath="self.playerOneIsRobot" id="UcO-j5-2FH"/>
+                                        </connections>
+                                    </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MFx-bi-AKF">
+                                        <rect key="frame" x="18" y="151" width="123" height="28"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Player Two:" id="u0X-Ud-Xuw">
+                                            <font key="font" metaFont="system" size="24"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gMX-dT-wdT">
+                                        <rect key="frame" x="18" y="76" width="125" height="24"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Robot Depth:" id="Ogf-P4-vCr">
+                                            <font key="font" metaFont="system" size="21"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2HV-af-S3b">
+                                        <rect key="frame" x="18" y="226" width="124" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="4I1-CR-7Wc"/>
+                                        </constraints>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Player One:" id="Maf-Ax-BJ8">
+                                            <font key="font" metaFont="system" size="24"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="c0N-rc-2H6" firstAttribute="centerY" secondItem="QHX-5c-WAJ" secondAttribute="centerY" id="0YG-Ab-bjO"/>
-                                    <constraint firstItem="xdF-HJ-4pr" firstAttribute="top" secondItem="2HV-af-S3b" secondAttribute="bottom" constant="8" id="3pT-er-XVq"/>
-                                    <constraint firstAttribute="trailing" secondItem="lS9-5z-nYJ" secondAttribute="trailing" constant="20" id="6j5-uC-q79"/>
-                                    <constraint firstItem="pDx-l4-hAw" firstAttribute="leading" secondItem="bO8-bQ-YjI" secondAttribute="leading" id="7Qd-xh-TTb"/>
-                                    <constraint firstItem="bO8-bQ-YjI" firstAttribute="leading" secondItem="MFx-bi-AKF" secondAttribute="leading" constant="12" id="BfY-dq-X9G"/>
-                                    <constraint firstItem="xdF-HJ-4pr" firstAttribute="leading" secondItem="2HV-af-S3b" secondAttribute="leading" constant="12" id="ELT-Ps-O8p"/>
-                                    <constraint firstItem="pDx-l4-hAw" firstAttribute="top" secondItem="bO8-bQ-YjI" secondAttribute="bottom" constant="6" id="HgK-7L-jCM"/>
-                                    <constraint firstAttribute="width" constant="355" id="Jc5-iS-kKk"/>
-                                    <constraint firstItem="QHX-5c-WAJ" firstAttribute="leading" secondItem="2HV-af-S3b" secondAttribute="trailing" constant="17" id="LTT-X0-BaD"/>
-                                    <constraint firstItem="MFx-bi-AKF" firstAttribute="leading" secondItem="y9d-VO-Y2p" secondAttribute="leading" constant="20" id="OWE-ck-j6o"/>
-                                    <constraint firstItem="MFx-bi-AKF" firstAttribute="top" secondItem="y9d-VO-Y2p" secondAttribute="top" constant="129" id="Peb-P3-R0v"/>
-                                    <constraint firstAttribute="height" constant="273" id="Vm9-sm-Hsc"/>
-                                    <constraint firstItem="Dj8-fs-ymi" firstAttribute="leading" secondItem="sne-5N-bSu" secondAttribute="trailing" constant="20" id="Zy8-xO-QXB"/>
-                                    <constraint firstItem="sne-5N-bSu" firstAttribute="leading" secondItem="QHX-5c-WAJ" secondAttribute="leading" id="ajM-FV-BLo"/>
-                                    <constraint firstItem="c0N-rc-2H6" firstAttribute="leading" secondItem="QHX-5c-WAJ" secondAttribute="trailing" constant="20" id="ixR-To-spu"/>
-                                    <constraint firstItem="dKR-gU-qZM" firstAttribute="leading" secondItem="xdF-HJ-4pr" secondAttribute="leading" id="jdQ-nc-crH"/>
-                                    <constraint firstItem="2HV-af-S3b" firstAttribute="top" secondItem="y9d-VO-Y2p" secondAttribute="top" constant="20" id="nh8-VP-D5m"/>
-                                    <constraint firstItem="Dj8-fs-ymi" firstAttribute="centerY" secondItem="sne-5N-bSu" secondAttribute="centerY" id="qoL-YK-bke"/>
-                                    <constraint firstItem="QHX-5c-WAJ" firstAttribute="centerY" secondItem="2HV-af-S3b" secondAttribute="centerY" constant="3.5" id="tO0-no-crN"/>
-                                    <constraint firstItem="sne-5N-bSu" firstAttribute="centerY" secondItem="MFx-bi-AKF" secondAttribute="centerY" id="u8F-ZE-Vex"/>
-                                    <constraint firstItem="2HV-af-S3b" firstAttribute="leading" secondItem="y9d-VO-Y2p" secondAttribute="leading" constant="20" id="vfZ-LG-tLl"/>
-                                    <constraint firstItem="dKR-gU-qZM" firstAttribute="top" secondItem="xdF-HJ-4pr" secondAttribute="bottom" constant="6" id="wis-sh-s4F"/>
-                                    <constraint firstAttribute="bottom" secondItem="lS9-5z-nYJ" secondAttribute="bottom" constant="20" id="y3u-nl-eah"/>
-                                    <constraint firstItem="bO8-bQ-YjI" firstAttribute="top" secondItem="MFx-bi-AKF" secondAttribute="bottom" constant="8" id="z06-9G-Nme"/>
+                                    <constraint firstItem="2HV-af-S3b" firstAttribute="top" secondItem="y9d-VO-Y2p" secondAttribute="top" constant="20" id="0zQ-hJ-MOn"/>
+                                    <constraint firstItem="sne-5N-bSu" firstAttribute="centerY" secondItem="MFx-bi-AKF" secondAttribute="centerY" id="13q-Ov-iIv"/>
+                                    <constraint firstItem="AkQ-Yd-5OL" firstAttribute="centerY" secondItem="Tj9-py-HaT" secondAttribute="centerY" id="87H-eq-UwW"/>
+                                    <constraint firstItem="Tj9-py-HaT" firstAttribute="centerY" secondItem="gMX-dT-wdT" secondAttribute="centerY" id="9wW-fq-gUZ"/>
+                                    <constraint firstItem="c0N-rc-2H6" firstAttribute="leading" secondItem="QHX-5c-WAJ" secondAttribute="trailing" constant="20" id="C4z-8R-CpY"/>
+                                    <constraint firstItem="2HV-af-S3b" firstAttribute="leading" secondItem="y9d-VO-Y2p" secondAttribute="leading" constant="20" id="DJt-Ak-lgX"/>
+                                    <constraint firstItem="Dj8-fs-ymi" firstAttribute="centerY" secondItem="sne-5N-bSu" secondAttribute="centerY" id="HNw-mk-op8"/>
+                                    <constraint firstAttribute="trailing" secondItem="lS9-5z-nYJ" secondAttribute="trailing" constant="20" symbolic="YES" id="Hso-8a-MtR"/>
+                                    <constraint firstItem="c0N-rc-2H6" firstAttribute="centerY" secondItem="QHX-5c-WAJ" secondAttribute="centerY" id="Kbn-Os-Nde"/>
+                                    <constraint firstItem="xdF-HJ-4pr" firstAttribute="top" secondItem="2HV-af-S3b" secondAttribute="bottom" constant="8" id="MGD-7P-0fd"/>
+                                    <constraint firstItem="sne-5N-bSu" firstAttribute="leading" secondItem="QHX-5c-WAJ" secondAttribute="leading" id="S6T-l5-RNN"/>
+                                    <constraint firstItem="Tj9-py-HaT" firstAttribute="top" secondItem="AkQ-Yd-5OL" secondAttribute="top" id="Smi-F9-TE1"/>
+                                    <constraint firstItem="bO8-bQ-YjI" firstAttribute="leading" secondItem="xdF-HJ-4pr" secondAttribute="leading" id="U8Y-ro-kmO"/>
+                                    <constraint firstItem="dKR-gU-qZM" firstAttribute="centerY" secondItem="xdF-HJ-4pr" secondAttribute="centerY" id="UJ7-sE-Mgb"/>
+                                    <constraint firstItem="gMX-dT-wdT" firstAttribute="leading" secondItem="MFx-bi-AKF" secondAttribute="leading" id="UTJ-In-O0D"/>
+                                    <constraint firstItem="pDx-l4-hAw" firstAttribute="leading" secondItem="dKR-gU-qZM" secondAttribute="leading" id="VCy-iM-y42"/>
+                                    <constraint firstItem="dKR-gU-qZM" firstAttribute="leading" secondItem="xdF-HJ-4pr" secondAttribute="trailing" constant="20" id="WNg-yg-q0J"/>
+                                    <constraint firstItem="MFx-bi-AKF" firstAttribute="leading" secondItem="2HV-af-S3b" secondAttribute="leading" id="XWt-zN-wr1"/>
+                                    <constraint firstItem="Dj8-fs-ymi" firstAttribute="leading" secondItem="c0N-rc-2H6" secondAttribute="leading" id="YIw-mt-R4P"/>
+                                    <constraint firstItem="QHX-5c-WAJ" firstAttribute="leading" secondItem="2HV-af-S3b" secondAttribute="trailing" constant="20" id="dti-gp-nJD"/>
+                                    <constraint firstItem="pDx-l4-hAw" firstAttribute="centerY" secondItem="bO8-bQ-YjI" secondAttribute="centerY" id="hU1-qx-R71"/>
+                                    <constraint firstAttribute="bottom" secondItem="lS9-5z-nYJ" secondAttribute="bottom" constant="18" id="hfR-D9-wKv"/>
+                                    <constraint firstItem="gMX-dT-wdT" firstAttribute="top" secondItem="MFx-bi-AKF" secondAttribute="bottom" constant="51" id="hjf-vU-A6o"/>
+                                    <constraint firstItem="QHX-5c-WAJ" firstAttribute="centerY" secondItem="2HV-af-S3b" secondAttribute="centerY" id="j1T-lD-kxL"/>
+                                    <constraint firstItem="Tj9-py-HaT" firstAttribute="leading" secondItem="gMX-dT-wdT" secondAttribute="trailing" constant="16" id="l1m-rF-CDm"/>
+                                    <constraint firstItem="MFx-bi-AKF" firstAttribute="top" secondItem="2HV-af-S3b" secondAttribute="bottom" constant="47" id="lbK-hi-Zgx"/>
+                                    <constraint firstItem="bO8-bQ-YjI" firstAttribute="top" secondItem="MFx-bi-AKF" secondAttribute="bottom" constant="8" id="qph-Z0-GyF"/>
+                                    <constraint firstItem="xdF-HJ-4pr" firstAttribute="leading" secondItem="2HV-af-S3b" secondAttribute="leading" constant="30" id="t4I-0p-noB"/>
+                                    <constraint firstItem="AkQ-Yd-5OL" firstAttribute="leading" secondItem="Tj9-py-HaT" secondAttribute="trailing" constant="18" id="teL-o0-EUP"/>
+                                    <constraint firstAttribute="trailing" secondItem="AkQ-Yd-5OL" secondAttribute="trailing" constant="19" id="vVh-yX-awB"/>
                                 </constraints>
                             </customView>
                             <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FGJ-rD-QyU">
-                                <rect key="frame" x="385" y="13" width="81" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="69" id="BQD-e9-mBu"/>
-                                    <constraint firstAttribute="height" constant="21" id="Oen-se-skP"/>
-                                </constraints>
+                                <rect key="frame" x="385" y="13" width="81" height="31"/>
                                 <buttonCell key="cell" type="push" title="Replay" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HSN-HC-8Sj">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -306,10 +329,13 @@
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="y9d-VO-Y2p" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="3RR-O7-yrI"/>
-                            <constraint firstAttribute="bottom" secondItem="FGJ-rD-QyU" secondAttribute="bottom" constant="20" id="b85-gV-vBN"/>
-                            <constraint firstItem="y9d-VO-Y2p" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="jkZ-KA-zWW"/>
-                            <constraint firstAttribute="trailing" secondItem="FGJ-rD-QyU" secondAttribute="trailing" constant="20" id="lGk-CO-GgH"/>
+                            <constraint firstItem="y9d-VO-Y2p" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="Fjq-Wj-AzU"/>
+                            <constraint firstItem="FGJ-rD-QyU" firstAttribute="top" secondItem="y9d-VO-Y2p" secondAttribute="bottom" constant="19" id="IE8-k1-KV6"/>
+                            <constraint firstAttribute="bottom" secondItem="FGJ-rD-QyU" secondAttribute="bottom" constant="20" symbolic="YES" id="PA6-Tc-xfN"/>
+                            <constraint firstItem="y9d-VO-Y2p" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="59" id="RDh-Ci-krF"/>
+                            <constraint firstItem="y9d-VO-Y2p" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="XrB-zK-dFd"/>
+                            <constraint firstAttribute="trailing" secondItem="FGJ-rD-QyU" secondAttribute="trailing" constant="20" symbolic="YES" id="pmj-KN-Ot2"/>
+                            <constraint firstItem="y9d-VO-Y2p" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="63" id="ukn-A5-6vv"/>
                         </constraints>
                     </view>
                     <connections>
