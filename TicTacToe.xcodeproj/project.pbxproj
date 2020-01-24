@@ -24,6 +24,10 @@
 		276C92C923D96ECC000B7B26 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276C92C823D96ECC000B7B26 /* BoardView.swift */; };
 		276C92CB23D970A7000B7B26 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276C92CA23D970A7000B7B26 /* BoardViewController.swift */; };
 		276C92CD23D970CA000B7B26 /* ConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276C92CC23D970CA000B7B26 /* ConfigView.swift */; };
+		2795EACD23DB628000DAB273 /* tictactoe.png in Resources */ = {isa = PBXBuildFile; fileRef = 2795EACC23DB628000DAB273 /* tictactoe.png */; };
+		2795EACE23DB628000DAB273 /* tictactoe.png in Resources */ = {isa = PBXBuildFile; fileRef = 2795EACC23DB628000DAB273 /* tictactoe.png */; };
+		2795EAD023DB646400DAB273 /* tictactoe_87.png in Resources */ = {isa = PBXBuildFile; fileRef = 2795EACF23DB646400DAB273 /* tictactoe_87.png */; };
+		2795EAD123DB646400DAB273 /* tictactoe_87.png in Resources */ = {isa = PBXBuildFile; fileRef = 2795EACF23DB646400DAB273 /* tictactoe_87.png */; };
 		27D96D7A23C1AA60003A677B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D96D7923C1AA60003A677B /* AppDelegate.swift */; };
 		27D96D7C23C1AA60003A677B /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D96D7B23C1AA60003A677B /* BoardViewController.swift */; };
 		27D96D7E23C1AA62003A677B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27D96D7D23C1AA62003A677B /* Assets.xcassets */; };
@@ -49,6 +53,8 @@
 		276C92C823D96ECC000B7B26 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		276C92CA23D970A7000B7B26 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
 		276C92CC23D970CA000B7B26 /* ConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigView.swift; sourceTree = "<group>"; };
+		2795EACC23DB628000DAB273 /* tictactoe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tictactoe.png; sourceTree = "<group>"; };
+		2795EACF23DB646400DAB273 /* tictactoe_87.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tictactoe_87.png; sourceTree = "<group>"; };
 		27D96D7623C1AA60003A677B /* TicTacToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27D96D7923C1AA60003A677B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27D96D7B23C1AA60003A677B /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +98,8 @@
 		276C92A923D96C54000B7B26 /* TicTacToeCommon */ = {
 			isa = PBXGroup;
 			children = (
+				2795EACC23DB628000DAB273 /* tictactoe.png */,
+				2795EACF23DB646400DAB273 /* tictactoe_87.png */,
 				275986A823D0868F0014BECA /* Indexer.swift */,
 				27D96D8D23C1CBF1003A677B /* Player.swift */,
 				27D96D9323C2C750003A677B /* Grid.swift */,
@@ -229,9 +237,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2795EACE23DB628000DAB273 /* tictactoe.png in Resources */,
 				276C92BD23D96CC3000B7B26 /* LaunchScreen.storyboard in Resources */,
 				276C92BA23D96CC3000B7B26 /* Assets.xcassets in Resources */,
 				276C92B823D96CC2000B7B26 /* Main.storyboard in Resources */,
+				2795EAD123DB646400DAB273 /* tictactoe_87.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +249,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2795EACD23DB628000DAB273 /* tictactoe.png in Resources */,
+				2795EAD023DB646400DAB273 /* tictactoe_87.png in Resources */,
 				27D96D7E23C1AA62003A677B /* Assets.xcassets in Resources */,
 				27D96D8123C1AA62003A677B /* Main.storyboard in Resources */,
 			);

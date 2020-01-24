@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XQx-bo-dDm" customClass="ConfigView" customModule="iTicTacToe" customModuleProvider="target">
-                                <rect key="frame" x="87" y="307.5" width="240" height="281"/>
+                                <rect key="frame" x="87" y="268.5" width="240" height="359"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Who Plays First" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQI-B3-i04">
                                         <rect key="frame" x="12" y="12" width="216" height="26"/>
@@ -26,6 +26,12 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Who is the Robot" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yA-Ie-nQ8">
                                         <rect key="frame" x="12" y="89" width="216" height="26"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starts Next Game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FVW-RX-RjG">
+                                        <rect key="frame" x="12" y="234" width="216" height="26"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -70,21 +76,33 @@
                                         </connections>
                                     </slider>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xO2-Gz-wY1">
-                                        <rect key="frame" x="191" y="233" width="41" height="36"/>
+                                        <rect key="frame" x="191" y="311" width="41" height="36"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="Play"/>
                                         <connections>
                                             <action selector="handlePlayButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aAY-cP-MRF"/>
                                         </connections>
                                     </button>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="C7y-dU-Oys">
+                                        <rect key="frame" x="8" y="268" width="224" height="32"/>
+                                        <segments>
+                                            <segment title="winner"/>
+                                            <segment title="loser"/>
+                                            <segment title="alternate"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="handleRobotSelector:" destination="BYZ-38-t0r" eventType="valueChanged" id="qGH-bI-bHq"/>
+                                        </connections>
+                                    </segmentedControl>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="4ZY-vY-XSG" firstAttribute="width" secondItem="e1p-9g-7lD" secondAttribute="width" multiplier="0.66" id="1b6-N8-Yei"/>
                                     <constraint firstItem="4ZY-vY-XSG" firstAttribute="centerX" secondItem="XQx-bo-dDm" secondAttribute="centerX" id="37W-6V-CWu"/>
+                                    <constraint firstAttribute="trailing" secondItem="FVW-RX-RjG" secondAttribute="trailing" constant="12" id="3D0-vh-wdR"/>
                                     <constraint firstAttribute="trailing" secondItem="RQI-B3-i04" secondAttribute="trailing" constant="12" id="3Zs-jh-w8h"/>
-                                    <constraint firstItem="xO2-Gz-wY1" firstAttribute="top" secondItem="o8Q-bb-el7" secondAttribute="bottom" constant="12" id="6mg-RQ-z3Z"/>
                                     <constraint firstItem="RQI-B3-i04" firstAttribute="top" secondItem="XQx-bo-dDm" secondAttribute="top" constant="12" id="7N5-HK-Ski"/>
+                                    <constraint firstItem="xO2-Gz-wY1" firstAttribute="top" secondItem="C7y-dU-Oys" secondAttribute="bottom" constant="12" id="85N-D9-siF"/>
                                     <constraint firstItem="nD0-7a-Mpc" firstAttribute="top" secondItem="e1p-9g-7lD" secondAttribute="bottom" constant="12" id="8XL-VE-Zsf"/>
                                     <constraint firstAttribute="trailing" secondItem="6yA-Ie-nQ8" secondAttribute="trailing" constant="12" id="AbZ-s9-Jck"/>
                                     <constraint firstItem="6yA-Ie-nQ8" firstAttribute="top" secondItem="4ZY-vY-XSG" secondAttribute="bottom" constant="12" id="FJ8-IF-uHn"/>
@@ -95,11 +113,15 @@
                                     <constraint firstItem="o8Q-bb-el7" firstAttribute="leading" secondItem="e1p-9g-7lD" secondAttribute="leading" id="Xja-ji-x07"/>
                                     <constraint firstItem="o8Q-bb-el7" firstAttribute="top" secondItem="nD0-7a-Mpc" secondAttribute="bottom" constant="4" id="b3z-zb-4t3"/>
                                     <constraint firstItem="e1p-9g-7lD" firstAttribute="top" secondItem="6yA-Ie-nQ8" secondAttribute="bottom" constant="8" id="cDa-NS-D8M"/>
+                                    <constraint firstItem="C7y-dU-Oys" firstAttribute="top" secondItem="FVW-RX-RjG" secondAttribute="bottom" constant="8" id="cKS-vp-m3H"/>
                                     <constraint firstAttribute="width" constant="240" id="edc-lJ-8Pf"/>
                                     <constraint firstItem="e1p-9g-7lD" firstAttribute="centerX" secondItem="XQx-bo-dDm" secondAttribute="centerX" id="hac-OU-Plt"/>
                                     <constraint firstItem="nD0-7a-Mpc" firstAttribute="centerY" secondItem="Fy8-BD-ben" secondAttribute="centerY" id="kII-hH-2y3"/>
                                     <constraint firstItem="6yA-Ie-nQ8" firstAttribute="leading" secondItem="RQI-B3-i04" secondAttribute="leading" id="n09-Ix-hp5"/>
+                                    <constraint firstItem="FVW-RX-RjG" firstAttribute="top" secondItem="o8Q-bb-el7" secondAttribute="bottom" constant="13" id="nTm-mt-fb8"/>
                                     <constraint firstAttribute="trailing" secondItem="xO2-Gz-wY1" secondAttribute="trailing" constant="8" id="rVM-33-yBm"/>
+                                    <constraint firstItem="C7y-dU-Oys" firstAttribute="centerX" secondItem="XQx-bo-dDm" secondAttribute="centerX" id="rYd-zV-7Ua"/>
+                                    <constraint firstItem="FVW-RX-RjG" firstAttribute="leading" secondItem="XQx-bo-dDm" secondAttribute="leading" constant="12" id="sZ2-sR-dP8"/>
                                     <constraint firstItem="o8Q-bb-el7" firstAttribute="trailing" secondItem="e1p-9g-7lD" secondAttribute="trailing" id="soh-m4-gv6"/>
                                     <constraint firstItem="nD0-7a-Mpc" firstAttribute="leading" secondItem="e1p-9g-7lD" secondAttribute="leading" id="uhF-9F-EjO"/>
                                     <constraint firstAttribute="trailing" secondItem="Fy8-BD-ben" secondAttribute="trailing" constant="90" id="yRD-EA-B1J"/>
@@ -113,21 +135,37 @@
                                     <action selector="handlePlayButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1rd-Al-4Bx"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l9U-xq-cMV">
+                                <rect key="frame" x="20" y="799" width="126" height="41"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="24"/>
+                                <state key="normal" title="New Game"/>
+                                <connections>
+                                    <action selector="handleNewGameButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7mc-oL-GDA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="l9U-xq-cMV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="PtY-TG-BG7"/>
                             <constraint firstItem="XQx-bo-dDm" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Rye-4I-Ghp"/>
                             <constraint firstItem="XQx-bo-dDm" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Vc5-5z-U3m"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5Vh-6R-W3y" secondAttribute="bottom" constant="22" id="ag5-ZF-9US"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="l9U-xq-cMV" secondAttribute="bottom" constant="22" id="pqN-el-doV"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5Vh-6R-W3y" secondAttribute="trailing" constant="20" id="s6Y-Ml-0iR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="X0L-UX-afU" appends="YES" id="MPu-UB-8lR"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="boardView" destination="8bC-Xf-vdC" id="2fE-8f-rb5"/>
                         <outlet property="configView" destination="XQx-bo-dDm" id="gzq-v1-SH7"/>
                         <outlet property="firstPlayerSelector" destination="4ZY-vY-XSG" id="mm6-6o-SAL"/>
-                        <outlet property="replayButton" destination="5Vh-6R-W3y" id="ADC-RU-bOQ"/>
+                        <outlet property="newGameButton" destination="l9U-xq-cMV" id="HWL-D9-iIP"/>
+                        <outlet property="nextPlayerSelector" destination="C7y-dU-Oys" id="V0x-Zc-152"/>
+                        <outlet property="replayButton" destination="5Vh-6R-W3y" id="s3t-Bp-xrr"/>
                         <outlet property="robotLookAheadLabel" destination="nD0-7a-Mpc" id="3fD-5d-Pt9"/>
                         <outlet property="robotLookAheadSlider" destination="o8Q-bb-el7" id="yis-uc-WPS"/>
                         <outlet property="robotLookAheadText" destination="Fy8-BD-ben" id="ubI-fR-ufn"/>
@@ -135,6 +173,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="X0L-UX-afU">
+                    <connections>
+                        <action selector="handleTap:" destination="BYZ-38-t0r" id="5gt-t3-gdF"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="135.9375"/>
         </scene>

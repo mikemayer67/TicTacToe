@@ -14,15 +14,17 @@ class BoardViewController: UIViewController, AIGameViewCotroller
   private(set) var player1   : Player!
   private(set) var player2   : Player!
   
-  @IBOutlet weak var boardView    : BoardView!
-  @IBOutlet weak var configView   : ConfigView!
-  @IBOutlet weak var replayButton : UIButton!
+  @IBOutlet weak var boardView     : BoardView!
+  @IBOutlet weak var configView    : ConfigView!
+  @IBOutlet weak var replayButton  : UIButton!
+  @IBOutlet weak var newGameButton : UIButton!
   
   @IBOutlet weak var firstPlayerSelector  : UISegmentedControl!
   @IBOutlet weak var robotSelector        : UISegmentedControl!
   @IBOutlet weak var robotLookAheadSlider : UISlider!
   @IBOutlet weak var robotLookAheadText   : UILabel!
   @IBOutlet weak var robotLookAheadLabel  : UILabel!
+  @IBOutlet weak var nextPlayerSelector   : UISegmentedControl!
   
   var playerOneIsX : Bool = true
   var robotPlayer  : Int = 1
@@ -71,7 +73,26 @@ class BoardViewController: UIViewController, AIGameViewCotroller
     
     if( sender === replayButton )
     {
-      (player1,player2) = (player2,player1)
+      (player1,player2) = (player2,player1) // default is to alternate
+
+      if nextPlayerSelector.selectedSegmentIndex < 2
+      {
+        if case VMGameState.Winner(let winner as Player) = board.state
+        {
+          let loser = ( player1 === winner ? player2 : player1)
+          
+          if nextPlayerSelector.selectedSegmentIndex == 0
+          {
+            player1 = winner
+            player2 = loser
+          }
+          else
+          {
+            player1 = loser
+            player2 = winner
+          }
+        }
+      }
     }
     else
     {
@@ -82,11 +103,21 @@ class BoardViewController: UIViewController, AIGameViewCotroller
     setupNewGame()
   }
   
+  @IBAction func handleNewGameButton(_ sender : UIButton)
+  {
+    configView.isHidden = false
+    replayButton.isHidden = true
+    newGameButton.isHidden = true
+  }
+  
   func setupNewGame()
   {
     
     board = Board(player1, player2)
     boardView.board = board
+    
+    replayButton.isHidden = true
+    newGameButton.isHidden = true
     
     gameBot = nil
     if robotPlayer != 2
@@ -104,10 +135,32 @@ class BoardViewController: UIViewController, AIGameViewCotroller
   func handleGameCompletion()
   {
     replayButton.isHidden = false
+    newGameButton.isHidden = false
   }
   
   func updateView()
   {
     boardView.setNeedsDisplay()
+  }
+  
+  @IBAction func handleTap(_ sender: UITapGestureRecognizer)
+  {
+    guard let  board = self.board else { return }
+    guard case VMGameState.PlayerTurn(let player as Player) = board.state else { return }
+    guard case VMGamePlayerType.Human = player.type else { return }
+    
+    // note that because UIView and NSView use different coordinate systems,
+    //  North is actually at the bottom of the view
+    if let cell = boardView.cell(at:sender.location(in: boardView)), board.open(at:cell)
+    {    
+      board.mark(cell, for: player)
+      boardView.setNeedsDisplay(boardView.bounds)
+      if board.state.done {
+        replayButton.isHidden = false
+        newGameButton.isHidden = false
+      }
+      
+      gameBot?.takeTurn(self)
+    }
   }
 }

@@ -81,7 +81,7 @@ class VMGameBot
     
     if bestMoves.isEmpty { return nil }
     
-    return (bestMoves.first!, bestScore)
+    return (bestMoves.randomElement()!, bestScore)
   }
   
   func takeTurn(_ vc:AIGameViewCotroller)

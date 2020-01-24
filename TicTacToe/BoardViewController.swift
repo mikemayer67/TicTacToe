@@ -26,6 +26,12 @@ class BoardViewController: NSViewController, AIGameViewCotroller
   
   var gameBot : VMGameBot?
   
+  override func viewDidLoad()
+  {
+    super.viewDidLoad()
+    boardView.setNeedsDisplay(boardView.bounds)
+  }
+  
   @IBAction func watchPlayerOne(_ sender: NSButton) {
     if playerOneIsRobot, playerTwoIsRobot { playerTwoIsRobot = false }
   }
@@ -54,6 +60,8 @@ class BoardViewController: NSViewController, AIGameViewCotroller
     board = Board(player1, player2)
     boardView.board = board
     
+    replayButton.isHidden = true
+    
     gameBot = nil
     if playerOneIsRobot || playerTwoIsRobot
     {
@@ -76,12 +84,6 @@ class BoardViewController: NSViewController, AIGameViewCotroller
   
   func updateView()
   {
-    boardView.setNeedsDisplay(boardView.bounds)
-  }
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
     boardView.setNeedsDisplay(boardView.bounds)
   }
 
@@ -111,12 +113,12 @@ class BoardViewController: NSViewController, AIGameViewCotroller
       board.mark(upCell, for: player)
       boardView.setNeedsDisplay(boardView.bounds)
       if board.state.done { replayButton.isHidden = false }
+
+      // would not have gotten here if current player is a game bot
+      // if a game bot is in the game, it must therefore now be its turn
+      gameBot?.takeTurn(self)
     }
 
     touchCell = nil
-    
-    // would not have gotten here if current player is a game bot
-    // if a game bot is in the game, it must therefore now be its turn
-    gameBot?.takeTurn(self)
   }
 }
