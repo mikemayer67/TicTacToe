@@ -26,7 +26,7 @@ class Board : AIGameModel
   private(set) var marks : [UInt16]
   
   // AIGameBot support
-  private(set) var gameState: VMGameState = .PreGame
+  private(set) var state: VMGameState = .PreGame
     
   // Tic-Tac-Toe game play details
   private(set) var depth : Int
@@ -36,18 +36,8 @@ class Board : AIGameModel
   
   var currentPlayer : VMGamePlayer?
   {
-    guard case VMGameState.PlayerTurn(let player) = gameState else { return nil }
+    guard case VMGameState.PlayerTurn(let player) = state else { return nil }
     return player
-  }
-    
-  var done : Bool
-  {
-    switch gameState {
-    case .PreGame:    return false
-    case .PlayerTurn: return false
-    case .Winner:     return true
-    case .TieGame:    return true
-    }
   }
   
   init(_ player1: Player, _ player2 : Player )
@@ -60,7 +50,7 @@ class Board : AIGameModel
     players       = [player1,player2]
     playerSeats   = [player1.id:0, player2.id:1]
     marks         = [0,0]
-    gameState     = .PlayerTurn(player1)
+    state         = .PlayerTurn(player1)
     depth         = 0
   }
   
@@ -69,32 +59,32 @@ class Board : AIGameModel
     boardId = Board.boardIndexer.next()
     rootId = other.rootId
 
-    players       = other.players
-    playerSeats   = other.playerSeats
-    marks         = other.marks
-    gameState     = other.gameState
-    depth         = other.depth
+    players      = other.players
+    playerSeats  = other.playerSeats
+    marks        = other.marks
+    state        = other.state
+    depth        = other.depth
   }
   
   func restart()
   {
-    marks         = [0,0]
-    gameState     = .PlayerTurn(players[0])
-    depth         = 0
+    marks  = [0,0]
+    state  = .PlayerTurn(players[0])
+    depth  = 0
   }
   
   func reset(to other: AIGameModel) {
     guard let other = other as? Board else { fatalError("Unknown Game Model") }
     guard other.rootId == self.rootId else { fatalError("oops... Can only reset to a clone of current board") }
 
-    self.marks          = other.marks
-    self.gameState      = other.gameState
-    self.depth          = other.depth
+    self.marks  = other.marks
+    self.state  = other.state
+    self.depth  = other.depth
   }
   
   var availableMoves : [VMGameBotMove]?
   {
-    guard case VMGameState.PlayerTurn = gameState else { return nil }
+    guard case VMGameState.PlayerTurn = state else { return nil }
     
     if depth == 0 {
       let cand = Grid.Cell.allCases
@@ -118,7 +108,6 @@ class Board : AIGameModel
     return rval
   }
   
-  @discardableResult
   func apply(_ move:VMGameBotMove) -> Int
   {
     guard let cell   = move as? Grid.Cell        else { fatalError("oops... invalid move type") }
@@ -126,11 +115,11 @@ class Board : AIGameModel
 
     mark(cell, for:player)
     
-    if case VMGameState.TieGame = gameState {
+    if case VMGameState.TieGame = state {
       return 0
     }
     
-    if case VMGameState.Winner( let winner as Player ) = gameState
+    if case VMGameState.Winner( let winner as Player ) = state
     {
       return (winner.id == player.id ? Int.max : Int.min)
     }
@@ -158,8 +147,8 @@ class Board : AIGameModel
   
   func mark(_ cell:Grid.Cell, for player:Player)
   {
-    guard case VMGameState.PlayerTurn = gameState else { fatalError("oops... invalid game state to apply move") }
-    guard let seat = playerSeats[player.id]       else { fatalError("oops... player isn't in this game") }
+    guard case VMGameState.PlayerTurn = state else { fatalError("oops... invalid game state to apply move") }
+    guard let seat = playerSeats[player.id]   else { fatalError("oops... player isn't in this game") }
     
     let mask = cell.rawValue
     
@@ -170,19 +159,19 @@ class Board : AIGameModel
     
     for mask in Grid.winMasks {
       if mask & marks[seat] == mask {
-        gameState = .Winner(player)
+        state = .Winner(player)
         return
       }
     }
     
     if depth == 9  // current player didn't win (would have returned above), so must be a tie
     {
-      gameState = .TieGame
+      state = .TieGame
       return
     }
     
     // Not tied and no winner... other player's turn
-    gameState = .PlayerTurn( players[1-seat] )
+    state = .PlayerTurn( players[1-seat] )
   }
   
   func copy(with zone: NSZone? = nil) -> Any

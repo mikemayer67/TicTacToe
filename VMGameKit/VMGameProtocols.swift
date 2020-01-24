@@ -40,11 +40,23 @@ enum VMGameState
   case PlayerTurn(VMGamePlayer)
   case Winner(VMGamePlayer)
   case TieGame
+  
+  var done : Bool
+  {
+    switch self
+    {
+    case .Winner, .TieGame: return true
+    default:                return false
+    }
+  }
 }
 
 protocol VMGameModel
 {
-  var gameState : VMGameState { get }
+  var state : VMGameState { get }
+  
+  // player whose turn it is
+  var currentPlayer : VMGamePlayer? { get }
 }
 
 // This is an empty protocol.  It is up to the game model to create a class that
@@ -59,9 +71,6 @@ protocol VMGameBotMove
 
 protocol AIGameModel : AnyObject, NSCopying, VMGameModel
 {
-  // player whose turn it is
-  var currentPlayer : VMGamePlayer? { get }
-  
   // available moves for the specified player (nil if no moves possible)
   var availableMoves : [VMGameBotMove]? { get }
   
@@ -73,5 +82,18 @@ protocol AIGameModel : AnyObject, NSCopying, VMGameModel
   // The apply method advances the game state by the specified move for the current player
   //  The method must return an integer value that reflects the value FOR THE PLAYER MAKING THE MOVE
   //  The absolute value of the returned value should be less than Int.max
+  @discardableResult
   func apply(_ move:VMGameBotMove) -> Int
+}
+
+// Any NSView or UIView that is used to render the game board must conform
+//   to this protocol in order form the game bot to update it
+
+// Any NSViewController or UIViewController that is used to control the
+// game board view must conform to this protocol for the game bot to
+// interact with the view
+protocol AIGameViewCotroller
+{
+  func handleGameCompletion()
+  func updateView()
 }

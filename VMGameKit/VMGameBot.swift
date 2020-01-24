@@ -45,7 +45,7 @@ class VMGameBot
       
       var score = trial.apply(move)
       
-      switch trial.gameState
+      switch trial.state
       {
       case .PreGame:
         fatalError("oops... robot made a pregame move")
@@ -82,6 +82,24 @@ class VMGameBot
     if bestMoves.isEmpty { return nil }
     
     return (bestMoves.first!, bestScore)
+  }
+  
+  func takeTurn(_ vc:AIGameViewCotroller)
+  {
+    guard case VMGameState.PlayerTurn(let player as Player) = game.state,
+          case VMGamePlayerType.Robot = player.type
+          else { return }
+    
+    DispatchQueue.global(qos: .background).async {
+      if let move = self.selectMove()
+      {
+        DispatchQueue.main.async {
+          self.game.apply(move)
+          vc.updateView()
+          if self.game.state.done { vc.handleGameCompletion() }
+        }
+      }
+    }
   }
   
 }

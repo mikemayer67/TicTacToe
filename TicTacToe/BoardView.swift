@@ -36,7 +36,7 @@ class BoardView: NSView
     var bgColor = NSColor.white
     var fgColor = NSColor.black
     
-    if let state = board?.gameState {
+    if let state = board?.state {
       switch state
       {
       case .PreGame:
